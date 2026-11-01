@@ -1,0 +1,53 @@
+name: Build Windows
+
+# La fiecare push se construiește ExamYO.exe (portabil, fără installer) și se publică
+# ca artefact. La un tag v* (de ex. v0.1.0) se face și un Release cu arhiva ZIP.
+
+on:
+  push:
+    branches: [main]
+    tags: ["v*"]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: true
+
+      - uses: dtolnay/rust-toolchain@stable
+
+      - uses: Swatinem/rust-cache@v2
+
+      - name: Teste
+        run: cargo test --lib
+
+      - name: Build
+        run: cargo build --release
+
+      - name: Pregătește arhiva
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force ExamYO | Out-Null
+          Copy-Item target/release/ExamYO.exe ExamYO/
+          Copy-Item packaging/CITESTE.txt ExamYO/
+          Copy-Item LICENSE ExamYO/LICENSE.txt
+          Compress-Archive -Path ExamYO -DestinationPath ExamYO-windows.zip -Force
+          "{0:N1} MB" -f ((Get-Item ExamYO/ExamYO.exe).Length / 1MB)
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ExamYO-windows
+          path: ExamYO/
+
+      - name: Release
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: ExamYO-windows.zip

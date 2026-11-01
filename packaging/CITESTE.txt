@@ -1,0 +1,46 @@
+ExamYO – pregătire pentru examenul de radioamator
+==================================================
+
+Pornire
+-------
+Dublu-click pe ExamYO.exe. Nu trebuie instalat nimic.
+
+Folderul poate fi copiat oriunde, inclusiv pe un stick USB. Progresul
+tuturor utilizatorilor se salvează în fișierul ExamYO-date.json, chiar
+lângă ExamYO.exe, deci se mută odată cu aplicația. Pune folderul într-un
+loc unde se poate scrie (de exemplu Documente sau Desktop), nu în
+„Program Files”.
+
+La prima pornire, Windows poate afișa un avertisment albastru
+(SmartScreen), pentru că aplicația nu e semnată digital. Apasă
+„Mai multe informații” („More info”), apoi butonul care pornește
+aplicația oricum („Run anyway”).
+
+Cum se folosește
+----------------
+1. Îți alegi numele din listă sau adaugi un utilizator nou.
+2. Alegi clasa (I, II, III sau IV). Clasele I și II includ și întrebările
+   claselor inferioare.
+3. Alegi proba și parcurgi întrebările la rând. Răspunzi, apoi vezi dacă
+   e corect; rezolvarea o deschizi doar dacă vrei.
+
+Taste utile în timpul parcurgerii:
+  1–4 sau A–D   alege răspunsul
+  Enter         verifică răspunsul / treci la următoarea
+  E             arată sau ascunde rezolvarea
+  ← →           întrebarea anterioară / următoarea
+  Esc           înapoi la probe
+  Ctrl + / Ctrl −   mărește sau micșorează textul
+
+Ține la îndemână calculatorul și ciorna tale, ca la examen.
+
+Sursa întrebărilor
+------------------
+Întrebările și rezolvările sunt create de Francisc Toth, YO6OWN, și de
+contributorii menționați la fiecare întrebare:
+http://examyo.scienceontheweb.net
+
+Greșelile din întrebări se raportează autorului, pe site, la
+„Colectare erori și sugestii”.
+
+Licență: GNU GPL v2 sau ulterioară (vezi LICENSE.txt).

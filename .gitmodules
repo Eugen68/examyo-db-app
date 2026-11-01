@@ -1,0 +1,3 @@
+[submodule "examyo-db"]
+	path = examyo-db
+	url = https://github.com/Eugen68/examyo-db.git
