@@ -1,5 +1,7 @@
 # ExamYO
 
+Realizat de **Eugen, YO9VA**.
+
 Aplicație de antrenament pentru examenul de radioamator YO. Răspunzi întâi, abia apoi vezi dacă ai nimerit și, doar dacă vrei, rezolvarea.
 
 Pentru Windows e **un singur `ExamYO.exe` portabil**: nu se instalează, nu are nevoie de Java sau de internet, iar întrebările și figurile sunt incluse în el.

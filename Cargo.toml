@@ -1,8 +1,9 @@
 [package]
 name = "examyo"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2021"
 description = "Antrenament pentru examenul de radioamator YO, cu întrebările lui YO6OWN"
+authors = ["Eugen, YO9VA"]
 license = "GPL-2.0-or-later"
 repository = "https://github.com/Eugen68/examyo-db-app"
 build = "build.rs"
@@ -36,5 +37,6 @@ winresource = "0.1"
 
 [package.metadata.winresource]
 ProductName = "ExamYO"
+CompanyName = "Eugen, YO9VA"
 FileDescription = "ExamYO – pregătire examen radioamator"
-LegalCopyright = "GPL-2.0-or-later; întrebări © YO6OWN și contributorii"
+LegalCopyright = "Eugen, YO9VA – GPL-2.0-or-later; întrebări © YO6OWN și contributorii"

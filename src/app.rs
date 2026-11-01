@@ -373,6 +373,7 @@ fn profiles_screen(
                 ui.add_space(28.0);
                 ui.label(bold("ExamYO").size(36.0));
                 ui.label(RichText::new("Pregătire pentru examenul de radioamator").size(19.0).weak());
+                ui.label(RichText::new("realizat de Eugen, YO9VA").size(15.0).weak());
                 ui.add_space(22.0);
 
                 let mut profiles: Vec<&Profile> = store.profiles.iter().collect();

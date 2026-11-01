@@ -6,7 +6,7 @@ mod app;
 fn main() -> eframe::Result {
     let options = eframe::NativeOptions {
         viewport: eframe::egui::ViewportBuilder::default()
-            .with_title("ExamYO – pregătire examen radioamator")
+            .with_title("ExamYO – pregătire examen radioamator · realizat de Eugen, YO9VA")
             .with_inner_size([1100.0, 820.0])
             .with_min_inner_size([760.0, 560.0])
             .with_icon(app::icon()),

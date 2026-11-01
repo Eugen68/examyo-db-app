@@ -1,5 +1,6 @@
 ExamYO – pregătire pentru examenul de radioamator
 ==================================================
+Realizat de Eugen, YO9VA
 
 Pornire
 -------
