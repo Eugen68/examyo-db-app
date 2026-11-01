@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ro.yo9va.examyo.LogicTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2026-11-01T14:45:16.281Z" hostname="runnervmnwato" time="1.303">
+  <properties/>
+  <testcase name="noDuplicatesAndLowerLevelsFirst" classname="ro.yo9va.examyo.LogicTest" time="0.679"/>
+  <testcase name="everyClassHasItsProbes" classname="ro.yo9va.examyo.LogicTest" time="0.151"/>
+  <testcase name="readsRustStoreFile" classname="ro.yo9va.examyo.LogicTest" time="0.045"/>
+  <testcase name="profileRecordsAndCapsIdleTime" classname="ro.yo9va.examyo.LogicTest" time="0.006"/>
+  <testcase name="sameResultsAsRust" classname="ro.yo9va.examyo.LogicTest" time="0.219"/>
+  <testcase name="mergeKeepsNewestProfile" classname="ro.yo9va.examyo.LogicTest" time="0.001"/>
+  <testcase name="ancomCodeAndKeys" classname="ro.yo9va.examyo.LogicTest" time="0.0"/>
+  <testcase name="higherClassesIncludeLowerOnes" classname="ro.yo9va.examyo.LogicTest" time="0.197"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

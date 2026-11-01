@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ro.yo9va.examyo.ScreenshotTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-11-01T14:45:17.976Z" hostname="runnervmnwato" time="25.338">
+  <properties/>
+  <testcase name="walkThrough" classname="ro.yo9va.examyo.ScreenshotTest" time="25.338"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
