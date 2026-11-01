@@ -17,7 +17,9 @@ Progresul se salvează în `ExamYO-date.json`, lângă `.exe`, deci se mută oda
 
 ## Descărcare
 
-Fiecare push pe `main` construiește `ExamYO.exe` în GitHub Actions (tab-ul *Actions* → ultimul build → artefactul **ExamYO-windows**). Pentru versiunile publicate, vezi *Releases*.
+**[Descarcă ultima versiune](https://github.com/Eugen68/examyo-db-app/releases/tag/ultima-versiune)**: `ExamYO-windows.zip`, se dezarhivează și se pornește `ExamYO.exe`.
+
+Fiecare push pe `main` reconstruiește exe-ul în GitHub Actions și actualizează automat acest Release.
 
 ## Date
 

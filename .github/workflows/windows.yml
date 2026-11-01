@@ -46,8 +46,22 @@ jobs:
           name: ExamYO-windows
           path: ExamYO/
 
-      - name: Release
+      - name: Release versiune (tag v*)
         if: startsWith(github.ref, 'refs/tags/v')
         uses: softprops/action-gh-release@v2
         with:
           files: ExamYO-windows.zip
+
+      # La fiecare push pe main, Release-ul „ultima-versiune” e refăcut cu exe-ul nou,
+      # ca să existe mereu o adresă fixă de descărcare.
+      - name: Release „ultima-versiune”
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release delete ultima-versiune --cleanup-tag --yes || true
+          gh release create ultima-versiune ExamYO-windows.zip \
+            --target "$GITHUB_SHA" \
+            --title "ExamYO – ultima versiune" \
+            --notes "Construit automat din commit-ul ${GITHUB_SHA::7}. Descarcă ExamYO-windows.zip, dezarhivează și pornește ExamYO.exe. Nu se instalează nimic."
