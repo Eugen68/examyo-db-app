@@ -1,0 +1,117 @@
+name: Build
+
+# La fiecare push pe main se construiesc ExamYO.exe (Windows) și ExamYO.apk (Android),
+# iar Release-ul „ultima-versiune” e refăcut cu amândouă, ca adresa de descărcare să rămână fixă.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: true
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+      - name: Teste
+        run: cargo test --lib
+      - name: Build
+        run: cargo build --release
+      - name: Pregătește folderul
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force ExamYO | Out-Null
+          Copy-Item target/release/ExamYO.exe ExamYO/
+          Copy-Item packaging/CITESTE.txt ExamYO/
+          Copy-Item LICENSE ExamYO/LICENSE.txt
+          "{0:N1} MB" -f ((Get-Item ExamYO/ExamYO.exe).Length / 1MB)
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ExamYO-windows
+          path: ExamYO/
+
+  android:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: true
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+
+      # Cheile întrebărilor calculate de varianta Rust; testele Android verifică că sunt identice,
+      # ca progresul să poată fi mutat între PC și telefon.
+      - name: Chei de referință din Rust
+        run: cargo run --example export_keys > "$RUNNER_TEMP/rust-keys.tsv"
+
+      - uses: gradle/actions/setup-gradle@v4
+
+      - name: Teste și APK
+        working-directory: android
+        env:
+          RUST_KEYS: ${{ runner.temp }}/rust-keys.tsv
+        run: ./gradlew --no-daemon testDebugUnitTest assembleRelease
+
+      - name: Publică capturile și rezultatele testelor pe ramura capturi-android
+        if: always() && github.event_name == 'push'
+        env:
+          TOKEN: ${{ github.token }}
+        run: |
+          out="$RUNNER_TEMP/capturi"
+          mkdir -p "$out"
+          cp -r android/app/build/screenshots/. "$out/" 2>/dev/null || true
+          mkdir -p "$out/teste"
+          cp android/app/build/test-results/testDebugUnitTest/*.xml "$out/teste/" 2>/dev/null || true
+          cd "$out"
+          git init -q -b capturi-android
+          git add -A
+          git -c user.name="github-actions[bot]" -c user.email="41898299+github-actions[bot]@users.noreply.github.com" \
+            commit -q -m "Capturi pentru $GITHUB_SHA" || exit 0
+          git push -f -q "https://x-access-token:${TOKEN}@github.com/${GITHUB_REPOSITORY}.git" capturi-android
+
+      - name: Redenumește APK-ul
+        run: cp android/app/build/outputs/apk/release/app-release.apk ExamYO.apk
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ExamYO-android
+          path: ExamYO.apk
+
+  release:
+    needs: [windows, android]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: ExamYO-windows
+          path: ExamYO
+      - uses: actions/download-artifact@v4
+        with:
+          name: ExamYO-android
+          path: .
+      - name: Release „ultima-versiune”
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          zip -q -r ExamYO-windows.zip ExamYO
+          gh release delete ultima-versiune --cleanup-tag --yes -R "$GITHUB_REPOSITORY" || true
+          gh release create ultima-versiune ExamYO-windows.zip ExamYO.apk -R "$GITHUB_REPOSITORY" \
+            --target "$GITHUB_SHA" \
+            --title "ExamYO – ultima versiune" \
+            --notes "Realizat de Eugen, YO9VA. Construit automat din commit-ul ${GITHUB_SHA::7}.
+
+          **Windows:** descarcă ExamYO-windows.zip, dezarhivează și pornește ExamYO.exe. Nu se instalează nimic.
+
+          **Android:** descarcă ExamYO.apk pe telefon și deschide-l (trebuie permisă instalarea din surse necunoscute)."

@@ -6,6 +6,8 @@ Aplicație de antrenament pentru examenul de radioamator YO. Răspunzi întâi, 
 
 Pentru Windows e **un singur `ExamYO.exe` portabil**: nu se instalează, nu are nevoie de Java sau de internet, iar întrebările și figurile sunt incluse în el.
 
+Pentru Android există **ExamYO.apk**, cu aceleași funcții. Fișierul de progres are același format pe ambele, deci poți muta progresul între PC și telefon (Export / Import pe telefon, `ExamYO-date.json` lângă exe pe PC).
+
 ## Ce face
 
 - **Utilizatori locali.** Fiecare își alege numele (și indicativul) la pornire și are progresul lui. Util și la radioclub, pe un calculator comun.
@@ -19,9 +21,12 @@ Progresul se salvează în `ExamYO-date.json`, lângă `.exe`, deci se mută oda
 
 ## Descărcare
 
-**[Descarcă ultima versiune](https://github.com/Eugen68/examyo-db-app/releases/tag/ultima-versiune)**: `ExamYO-windows.zip`, se dezarhivează și se pornește `ExamYO.exe`.
+**[Descarcă ultima versiune](https://github.com/Eugen68/examyo-db-app/releases/tag/ultima-versiune)**:
 
-Fiecare push pe `main` reconstruiește exe-ul în GitHub Actions și actualizează automat acest Release.
+- **Windows:** `ExamYO-windows.zip`, se dezarhivează și se pornește `ExamYO.exe`.
+- **Android:** `ExamYO.apk`, se deschide pe telefon (trebuie permisă instalarea din surse necunoscute).
+
+Fiecare push pe `main` reconstruiește ambele variante în GitHub Actions și actualizează automat acest Release.
 
 ## Date
 
@@ -47,7 +52,9 @@ Structura:
 - `src/store.rs`: profiluri, progres, statistici și salvarea în JSON.
 - `src/app.rs`: interfața (egui).
 
-`data` și `store` nu depind de interfață, ca să poată fi refolosite la o variantă de Android.
+`data` și `store` nu depind de interfață.
+
+Varianta de Android e în `android/` (Kotlin + Jetpack Compose) și portează aceeași logică. Testele ei verifică, pe GitHub, că cheile întrebărilor și compunerea probelor sunt identice cu cele din Rust, ca progresul să fie portabil. Build local: `cd android && ./gradlew assembleRelease`.
 
 ## Licență
 
