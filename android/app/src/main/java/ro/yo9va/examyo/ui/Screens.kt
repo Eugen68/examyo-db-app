@@ -413,9 +413,9 @@ private fun PracticeScreen(vm: ExamViewModel, bank: Bank, s: Screen.Practice) {
                     Spacer(Modifier.weight(1f))
                     if (s.answered) {
                         OutlinedButton(onClick = vm::toggleExplanation) {
-                            Text(if (s.showExplanation) "Ascunde rezolvarea" else "Rezolvarea")
+                            Text(if (s.showExplanation) "Ascunde" else "Rezolvarea", maxLines = 1, softWrap = false)
                         }
-                        Button(onClick = vm::next) { Text("Următoarea ▶") }
+                        Button(onClick = vm::next) { Text("Următoarea ▶", maxLines = 1, softWrap = false) }
                     } else {
                         TextButton(onClick = vm::next) { Text("Sari peste") }
                         Button(onClick = vm::verify, enabled = s.selected != null) { Text("Verifică") }
